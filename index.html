@@ -9,14 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-
-    <!-- EmailJS -->
-    <script src="https://cdn.emailjs.com/sdk/3.2/email.min.js"></script>
-    <script>
-        (function() {
-            emailjs.init("BbAp-cI2hjG_J-mvt"); /* Your Public Key */
-        })();
-    </script>
 </head>
 
 <body>
@@ -175,7 +167,6 @@
         <p><strong>Email:</strong> <a href="mailto:manandhareliza123@gmail.com">manandhareliza123@gmail.com</a></p>
     </div>
 
-    <!-- Updated form with IDs -->
     <form id="contactForm" class="contact-form">
         <input type="text" id="name" placeholder="Your Name" required />
         <input type="email" id="email" placeholder="Email" required />
@@ -184,7 +175,32 @@
     </form>
 </section>
 
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 <script>
+document.addEventListener("DOMContentLoaded", function() {
+
+    // Initialize EmailJS
+    emailjs.init("BbAp-cI2hjG_J-mvt");
+
+    // Form submit
+    document.getElementById("contactForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+        const params = {
+            from_name: document.getElementById("name").value,
+            from_email: document.getElementById("email").value,
+            message: document.getElementById("message").value
+        };
+        emailjs.send("service_s01i5x9", "template_vf1fnol", params)
+            .then(function() {
+                alert("Message Sent Successfully!");
+                document.getElementById("contactForm").reset();
+            }, function(error) {
+                alert("Failed to send message. Please try again.");
+                console.error(error);
+            });
+    });
+
+    // Hamburger menu
     const burger = document.querySelector(".hamburger");
     const nav = document.querySelector("#nav-menu");
     const navLinks = nav.querySelectorAll('a');
@@ -198,48 +214,25 @@
     }
 
     burger.addEventListener("click", toggleMenu);
-
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
-            if (nav.classList.contains('open')) {
-                toggleMenu();
-            }
+            if (nav.classList.contains('open')) toggleMenu();
         });
     });
-    
+
     // Animation delays
-    document.addEventListener('DOMContentLoaded', () => {
-        const h1 = document.querySelector('.hero-text h1');
-        const h2 = document.querySelector('.hero-text h2');
-        const p = document.querySelector('.hero-text p');
-        const btns = document.querySelectorAll('.hero-btns .btn');
+    const h1 = document.querySelector('.hero-text h1');
+    const h2 = document.querySelector('.hero-text h2');
+    const p = document.querySelector('.hero-text p');
+    const btns = document.querySelectorAll('.hero-btns .btn');
 
-        if (h1) h1.style.animationDelay = '0s'; 
-        if (h2) h2.style.animationDelay = '0.3s';
-        if (p) p.style.animationDelay = '0.6s';
-        if (btns[0]) btns[0].style.animationDelay = '0.9s';
-        if (btns[1]) btns[1].style.animationDelay = '1.2s';
-    });
+    if (h1) h1.style.animationDelay = '0s';
+    if (h2) h2.style.animationDelay = '0.3s';
+    if (p) p.style.animationDelay = '0.6s';
+    if (btns[0]) btns[0].style.animationDelay = '0.9s';
+    if (btns[1]) btns[1].style.animationDelay = '1.2s';
 
-    // EmailJS Form Sending
-    document.getElementById("contactForm").addEventListener("submit", function(e) {
-        e.preventDefault();
-
-        const params = {
-            from_name: document.getElementById("name").value,
-            from_email: document.getElementById("email").value,
-            message: document.getElementById("message").value
-        };
-
-        emailjs.send("service_s01i5x9", "template_vf1fnol", params)
-            .then(function() {
-                alert("Message Sent Successfully!");
-                document.getElementById("contactForm").reset();
-            }, function(error) {
-                alert("Failed to send message. Please try again.");
-                console.error(error);
-            });
-    });
+});
 </script>
 
 </body>
