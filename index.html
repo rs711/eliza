@@ -3,18 +3,26 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Eliza Manadar | Civil Engineer</title>
+    <title>Eliza Manandhar | Civil Engineer</title>
     <link rel="stylesheet" href="portfolio.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+    <!-- EmailJS -->
+    <script src="https://cdn.emailjs.com/sdk/3.2/email.min.js"></script>
+    <script>
+        (function() {
+            emailjs.init("BbAp-cI2hjG_J-mvt"); /* Your Public Key */
+        })();
+    </script>
 </head>
 
 <body>
 
 <header class="navbar">
-    <div class="logo">E. Manadar</div>
+    <div class="logo">E. Manandhar</div>
 
     <nav id="nav-menu">
         <ul class="nav-list">
@@ -34,7 +42,7 @@
 
 <section id="home" class="hero">
     <div class="hero-text">
-        <h1 class="animate-up">Hello,<br> I'm Eliza Manadar</h1>
+        <h1 class="animate-up">Hello,<br> I'm Eliza Manandhar</h1>
         <h2 class="animate-up delay-1">Civil Engineer</h2>
         <p class="animate-up delay-2">
             Passionate about creating sustainable, resilient, and future-ready infrastructure through smart engineering and innovative design.
@@ -47,7 +55,7 @@
     </div>
 
     <div class="hero-img animate-fade">
-        <img src="eliza.jpg" alt="Profile photo of Eliza Manadar" />
+        <img src="eliza.jpg" alt="Profile photo of Eliza Manandhar" />
     </div>
 </section>
 
@@ -69,7 +77,6 @@
                 <a href="https://www.facebook.com/eliza.manandhar.142" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
                 <a href="https://www.instagram.com/elza_manandhar/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                 <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                
             </div>
         </div>
 
@@ -80,7 +87,7 @@
                 <li><span>AutoCAD</span></li>
                 <li><span>MS Word</span></li>
                 <li><span>MS Excel</span></li>
-                 <li><span>Site Surveying</span></li>
+                <li><span>Site Surveying</span></li>
                 <li><span>Report and analysis</span></li>
                 <li><span>Construction estimatings</span></li>
             </ul>
@@ -109,22 +116,19 @@
 <h2 class="section-title">Projects</h2>
 <p class="section-description">A selection of my academic and professional engineering work, detailed clearly without images.</p>
 
-
 <div class="projects-grid">
-
 
 <div class="project-card description-only">
 <div class="project-info">
 <h3>Seismic Analysis of Multi-Storied Office Building</h3>
-<p>This project involves the seismic analysis and design of a five‑storied RCC office building. The focus was on obtaining design outputs using the limit state method and ensuring structural safety under seismic loads using ETABS and AutoCAD.</p>
+<p>This project involves the seismic analysis and design of a five-storied RCC office building. The focus was on obtaining design outputs using the limit state method and ensuring structural safety under seismic loads using ETABS and AutoCAD.</p>
 <ul>
 <li>Structural & seismic analysis (ETABS)</li>
 <li>AutoCAD for detailed drawings</li>
-<li>IS 456‑2000 & IS 1893‑2016 code compliance</li>
+<li>IS 456-2000 & IS 1893-2016 code compliance</li>
 </ul>
 </div>
 </div>
-
 
 <div class="project-card description-only">
 <div class="project-info">
@@ -137,7 +141,6 @@
 </ul>
 </div>
 </div>
-
 
 </div>
 </section>
@@ -172,10 +175,11 @@
         <p><strong>Email:</strong> <a href="mailto:manandhareliza123@gmail.com">manandhareliza123@gmail.com</a></p>
     </div>
 
-    <form class="contact-form">
-        <input type="text" placeholder="Your Name" required />
-        <input type="email" placeholder="Email" required />
-        <textarea placeholder="Message" required></textarea>
+    <!-- Updated form with IDs -->
+    <form id="contactForm" class="contact-form">
+        <input type="text" id="name" placeholder="Your Name" required />
+        <input type="email" id="email" placeholder="Email" required />
+        <textarea id="message" placeholder="Message" required></textarea>
         <button type="submit" class="btn primary-btn">Send Message</button>
     </form>
 </section>
@@ -210,12 +214,31 @@
         const p = document.querySelector('.hero-text p');
         const btns = document.querySelectorAll('.hero-btns .btn');
 
-        // Apply a small delay so elements transition in order
         if (h1) h1.style.animationDelay = '0s'; 
         if (h2) h2.style.animationDelay = '0.3s';
         if (p) p.style.animationDelay = '0.6s';
         if (btns[0]) btns[0].style.animationDelay = '0.9s';
         if (btns[1]) btns[1].style.animationDelay = '1.2s';
+    });
+
+    // EmailJS Form Sending
+    document.getElementById("contactForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const params = {
+            from_name: document.getElementById("name").value,
+            from_email: document.getElementById("email").value,
+            message: document.getElementById("message").value
+        };
+
+        emailjs.send("service_s01i5x9", "template_vf1fnol", params)
+            .then(function() {
+                alert("Message Sent Successfully!");
+                document.getElementById("contactForm").reset();
+            }, function(error) {
+                alert("Failed to send message. Please try again.");
+                console.error(error);
+            });
     });
 </script>
 
